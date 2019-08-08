@@ -11,23 +11,39 @@ const favsList = document.querySelector('.favs__list');
 const favs = [];
 
 function createFavs (event) {
-  const favShow = event.currentTarget;
+  const targetShow = event.currentTarget;
   //AL HACER CLICK EN UN RESULTADO SE MARCA COMO FAV CAMBIANDO COLOR DE FUENTE Y FONDO
-  favShow.classList.toggle('show__fav');
+  targetShow.classList.toggle('show__fav');
   //CREAR ARRAY CON LOS FAV ALMACENADOS EN UNA VARIABLE
-  const favName = favShow.getAttribute('data-id');
-  if (favs.includes(favName) !== true) {
-    favs.push(favName);
+  const favId = targetShow.getAttribute('data-id');
+  const favImage = targetShow.querySelector('.itemShow-cover');
+  const favImageSrc = favImage.src;
+  const favTitle = targetShow.querySelector('.itemShow-title');
+  const favTitleName = favTitle.innerHTML;
+  const favShow = {
+    id: favId,
+    image: favImageSrc,
+    title: favTitleName
+  };
+
+  if (favs.includes(favId) === false) {
+    favs.push(favShow);
   } else {
-    const i = favs.indexOf(favName);
+    const i = favs.indexOf(favId);
     if (i > -1) {
       favs.splice(i, 1);
     }
   }
-  console.log(favs);
   //PINTAR LOS FAVS EN LA PARTE IZQ DE LA PANTALLA
   //AL BUSCAR DE NUEVO, LOS FAVS SE VAN SUMANDO
+  favsList.innerHTML += `<li class="favs__item" data-id="${favShow.id}">
+                          <div class="itemShow-wrapper">
+                            <img class="favs__item-cover" src="${favShow.image}" alt="Portada de ${favShow.title}">
+                            <h2 class="favs__item-title">${favShow.title}</h2>
+                          </div>
+                        </li>`;
   //ALMACENAMOS FAVS EN LOCAL STORAGE
+  localStorage.setItem('favs', JSON.stringify(favs));
 }
 
 function search () {
