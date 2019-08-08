@@ -3,6 +3,32 @@
 const input = document.querySelector('.header__input');
 const searchBtn = document.querySelector('.header__btn');
 const resultsList = document.querySelector('.results__list');
+const favsList = document.querySelector('.favs__list');
+
+//BONUS: BORRAR FAVS DEL LISTADO Y DE LS HACIENDO CLICK EN UNA X
+//BONUS: BORRAR TODOS LOS FAVS CON UN BOTON AL FINAL DE LA LISTA
+
+const favs = [];
+
+function createFavs (event) {
+  const favShow = event.currentTarget;
+  //AL HACER CLICK EN UN RESULTADO SE MARCA COMO FAV CAMBIANDO COLOR DE FUENTE Y FONDO
+  favShow.classList.toggle('show__fav');
+  //CREAR ARRAY CON LOS FAV ALMACENADOS EN UNA VARIABLE
+  const favName = favShow.getAttribute('data-id');
+  if (favs.includes(favName) !== true) {
+    favs.push(favName);
+  } else {
+    const i = favs.indexOf(favName);
+    if (i > -1) {
+      favs.splice(i, 1);
+    }
+  }
+  console.log(favs);
+  //PINTAR LOS FAVS EN LA PARTE IZQ DE LA PANTALLA
+  //AL BUSCAR DE NUEVO, LOS FAVS SE VAN SUMANDO
+  //ALMACENAMOS FAVS EN LOCAL STORAGE
+}
 
 function search () {
   let inputValue = input.value;
@@ -34,24 +60,10 @@ function search () {
       const resultsArray = document.querySelectorAll('.results__itemShow');
       //lo recorremos añadiéndoles un listener
       for (const item of resultsArray) {
-        item.addEventListener('click', changeFavColor);
+        item.addEventListener('click', createFavs);
       }
     });
 }
 
-//AL HACER CLICK EN UN RESULTADO SE MARCA COMO FAV CAMBIANDO COLOR DE FUENTE Y FONDO
-function changeFavColor (event) {
-  const favShow = event.currentTarget;
-  favShow.classList.toggle('show__fav');
-}
-
 //CLICK BOTÓN BUSCAR
 searchBtn.addEventListener('click', search);
-
-//CREAR ARRAY CON LOS FAV ALMACENADO EN UNA VARIABLE
-//PINTAR LOS FAVS EN LA PARTE IZQ DE LA PANTALLA
-//AL BUSCAR DE NUEVO, LOS FAVS SE VAN SUMANDO
-//ALMACENAMOS FAVS EN LOCAL STORAGE
-
-//BONUS: BORRAR FAVS DEL LISTADO Y DE LS HACIENDO CLICK EN UNA X
-//BORRAR TODOS LOS FAVS CON UN BOTON AL FINAL DE LA LISTA
