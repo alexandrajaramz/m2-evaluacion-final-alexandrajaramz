@@ -23,7 +23,7 @@ function search () {
           showImg = `${item.show.image.medium}`;
         }
         //CADA UNO SE PINTA EN UNA TARJETA CON IMG Y H2
-        showResult += `<li class="results__itemShow">
+        showResult += `<li class="results__itemShow" data-id="${showName}">
                           <div class="itemShow-wrapper">                           <img class="itemShow-cover" src="${showImg}" alt="Portada de ${showName}">
                             <h2 class="itemShow-title">${showName}</h2>
                           </div>
@@ -39,18 +39,14 @@ function search () {
     });
 }
 
-//CAMBIA EL COLOR DEL FAV
+//AL HACER CLICK EN UN RESULTADO SE MARCA COMO FAV CAMBIANDO COLOR DE FUENTE Y FONDO
 function changeFavColor (event) {
   const favShow = event.currentTarget;
   favShow.classList.toggle('show__fav');
 }
 
-//CLICK BUSCAR
+//CLICK BOTÓN BUSCAR
 searchBtn.addEventListener('click', search);
-
-//AL HACER CLICK EN UN RESULTADO SE MARCA COMO FAV CAMBIANDO COLOR DE FUENTE Y FONDO
-//clases que cambian el color:
-// al li:   .show-fav
 
 //CREAR ARRAY CON LOS FAV ALMACENADO EN UNA VARIABLE
 //PINTAR LOS FAVS EN LA PARTE IZQ DE LA PANTALLA
