@@ -15,23 +15,26 @@ function search () {
   //DEVUELVE RESULTADOS
     .then(response => response.json())
     .then(data => {
-      //CADA UNO SE PINTA EN UNA TARJETA CON IMG Y H2
-      //console.log(data);
       let showResult = '';
       for (const item of data) {
         console.log(item.show);
-        console.log(item.show.name);
-        console.log(item.show.image.medium);
+        let showName = item.show.name;
+        let showImg = '';
 
+        //SI EL RESULTADO NO TIENE IMG, SE PINTA UNA DE RELLENO
+        if (item.show.image === null) {
+          showImg = 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV';
+        } else {
+          showImg = `${item.show.image.medium}`;
+        }
+        //CADA UNO SE PINTA EN UNA TARJETA CON IMG Y H2
         showResult += `<li class="results__itemShow">
-                          <div class="itemShow-wrapper">                           <img class="itemShow-cover" src="${item.show.image.medium}" alt="Portada de ${item.show.name}">
-                            <h2 class="itemShow-title">${item.show.name}</h2>
+                          <div class="itemShow-wrapper">                           <img class="itemShow-cover" src="${showImg}" alt="Portada de ${showName}">
+                            <h2 class="itemShow-title">${showName}</h2>
                           </div>
                        </li>`;
       }
       resultsList.innerHTML = showResult;
-      //SI EL RESULTADO NO TIENE IMG, SE PINTA UNA DE RELLENO
-      //if else
     });
 
 }
