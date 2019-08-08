@@ -4,7 +4,7 @@ console.log('>> Ready :)');
 
 const input = document.querySelector('.header__input');
 const searchBtn = document.querySelector('.header__btn');
-const resultsSection = document.querySelector('.main__results');
+const resultsList = document.querySelector('.results__list');
 
 
 function search () {
@@ -16,8 +16,20 @@ function search () {
     .then(response => response.json())
     .then(data => {
       //CADA UNO SE PINTA EN UNA TARJETA CON IMG Y H2
-      console.log(data);
+      //console.log(data);
+      let showResult = '';
+      for (const item of data) {
+        console.log(item.show);
+        console.log(item.show.name);
+        console.log(item.show.image.medium);
 
+        showResult += `<li class="results__itemShow">
+                          <div class="itemShow-wrapper">                           <img class="itemShow-cover" src="${item.show.image.medium}" alt="Portada de ${item.show.name}">
+                            <h2 class="itemShow-title">${item.show.name}</h2>
+                          </div>
+                       </li>`;
+      }
+      resultsList.innerHTML = showResult;
       //SI EL RESULTADO NO TIENE IMG, SE PINTA UNA DE RELLENO
       //if else
     });
