@@ -5,11 +5,21 @@ body {
 	margin: 0;
 /* 	height: 100vh; */
 }
-
+ //LI
 .results__itemShow {
   background-color: #FFAAAA;
 }
 
+//FUENTE TÍTULO SERIE
 .itemShow-title {
   color: #BC0D35;
+}
+
+//FAVS
+.show__fav {
+  background-color: #BC0D35;
+
+  .itemShow-title {
+    color: #FFAAAA;
+    }
 }

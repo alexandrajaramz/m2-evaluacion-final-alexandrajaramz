@@ -1,11 +1,8 @@
 'use strict';
 
-console.log('>> Ready :)');
-
 const input = document.querySelector('.header__input');
 const searchBtn = document.querySelector('.header__btn');
 const resultsList = document.querySelector('.results__list');
-
 
 function search () {
   let inputValue = input.value;
@@ -17,10 +14,8 @@ function search () {
     .then(data => {
       let showResult = '';
       for (const item of data) {
-        console.log(item.show);
         let showName = item.show.name;
         let showImg = '';
-
         //SI EL RESULTADO NO TIENE IMG, SE PINTA UNA DE RELLENO
         if (item.show.image === null) {
           showImg = 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV';
@@ -35,16 +30,28 @@ function search () {
                        </li>`;
       }
       resultsList.innerHTML = showResult;
+      //creamos array de los resultados
+      const resultsArray = document.querySelectorAll('.results__itemShow');
+      //lo recorremos añadiéndoles un listener
+      for (const item of resultsArray) {
+        item.addEventListener('click', changeFavColor);
+      }
     });
+}
 
+//CAMBIA EL COLOR DEL FAV
+function changeFavColor (event) {
+  const favShow = event.currentTarget;
+  favShow.classList.toggle('show__fav');
 }
 
 //CLICK BUSCAR
 searchBtn.addEventListener('click', search);
 
-
-
 //AL HACER CLICK EN UN RESULTADO SE MARCA COMO FAV CAMBIANDO COLOR DE FUENTE Y FONDO
+//clases que cambian el color:
+// al li:   .show-fav
+
 //CREAR ARRAY CON LOS FAV ALMACENADO EN UNA VARIABLE
 //PINTAR LOS FAVS EN LA PARTE IZQ DE LA PANTALLA
 //AL BUSCAR DE NUEVO, LOS FAVS SE VAN SUMANDO
