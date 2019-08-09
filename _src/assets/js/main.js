@@ -8,7 +8,28 @@ const favsList = document.querySelector('.favs__list');
 //BONUS: BORRAR FAVS DEL LISTADO Y DE LS HACIENDO CLICK EN UNA X
 //BONUS: BORRAR TODOS LOS FAVS CON UN BOTON AL FINAL DE LA LISTA
 
-const favs = [];
+//funcion llamar ls
+loadLSFavs();
+
+function loadLSFavs() {
+  let savedLS = localStorage.getItem('favsRemember');
+  console.log(`El array guardado es ${savedLS}`);
+  if (savedLS) {
+    savedLS = JSON.parse(savedLS);
+
+    for (const item of savedLS) {
+      favsList.innerHTML+=`<li class="favs__item" data-id="${item.id}">
+                            <div class="itemShow-wrapper">
+                              <img class="favs__item-cover" src="${item.image}" alt="Portada de ${item.title}">
+                              <h2 class="favs__item-title">${item.title}</h2>
+                            </div>
+                          </li>`;
+    }
+  }
+}
+
+//array para almacenar favoritos
+let favs = [];
 
 function createFavs (event) {
   const targetShow = event.currentTarget;
@@ -25,7 +46,7 @@ function createFavs (event) {
     image: favImageSrc,
     title: favTitleName
   };
-
+  //esto no funciona
   if (favs.includes(favId) === false) {
     favs.push(favShow);
   } else {
@@ -34,6 +55,7 @@ function createFavs (event) {
       favs.splice(i, 1);
     }
   }
+  console.log(favs);
   //PINTAR LOS FAVS EN LA PARTE IZQ DE LA PANTALLA
   //AL BUSCAR DE NUEVO, LOS FAVS SE VAN SUMANDO
   favsList.innerHTML += `<li class="favs__item" data-id="${favShow.id}">
@@ -43,7 +65,7 @@ function createFavs (event) {
                           </div>
                         </li>`;
   //ALMACENAMOS FAVS EN LOCAL STORAGE
-  localStorage.setItem('favs', JSON.stringify(favs));
+  localStorage.setItem('favsRemember', JSON.stringify(favs));
 }
 
 function search () {
@@ -81,5 +103,11 @@ function search () {
     });
 }
 
+function enter (event) {
+  if (event.keyCode === 13){
+    search();
+  }
+}
 //CLICK BOTÓN BUSCAR
 searchBtn.addEventListener('click', search);
+input.addEventListener('keyup', enter);
