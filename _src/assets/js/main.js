@@ -5,17 +5,13 @@ const searchBtn = document.querySelector('.header__btn');
 const resultsList = document.querySelector('.results__list');
 const favsList = document.querySelector('.favs__list');
 
-//BONUS: BORRAR FAVS DEL LISTADO Y DE LS HACIENDO CLICK EN UNA X
-//BONUS: BORRAR TODOS LOS FAVS CON UN BOTON AL FINAL DE LA LISTA
-
 loadLSFavs();
 
+//FUNCION PARA ESCRIBIR EL CONTENIDO DEL LS
 function loadLSFavs() {
 
   if (JSON.parse(localStorage.getItem('favsRemember'))){
-    let savedLS = localStorage.getItem('favsRemember');
-    console.log(`El array guardado en LS es ${savedLS}`);
-    savedLS = JSON.parse(savedLS);
+    let savedLS = (JSON.parse(localStorage.getItem('favsRemember')));
     for (const item of savedLS) {
       favsList.innerHTML+=`<li class="favs__item" data-id="${item.id}">
                             <div class="itemShow-wrapper">
@@ -25,21 +21,19 @@ function loadLSFavs() {
                           </li>`;
     }
   }
-
 }
 
-//array para almacenar favoritos
+//ARRAY QUE VA A ALMACENAR LOS FAVS
 let favs = [];
 
 function createFavs (event) {
   const targetShow = event.currentTarget;
   //AL HACER CLICK EN UN RESULTADO SE MARCA COMO FAV CAMBIANDO COLOR DE FUENTE Y FONDO
   targetShow.classList.toggle('show__fav');
-
+  //SI HAY ARRAY EN LS, FAVS ES EL ARRAY GUARDADO
   if (JSON.parse(localStorage.getItem('favsRemember'))) {
     favs=JSON.parse(localStorage.getItem('favsRemember'));
   }
-
   //CREAR ARRAY CON LOS FAV ALMACENADOS EN UNA VARIABLE
   const favId = targetShow.getAttribute('data-id');
   const favImage = targetShow.querySelector('.itemShow-cover');
@@ -51,8 +45,7 @@ function createFavs (event) {
     'image': favImageSrc,
     'title': favTitleName
   };
-
-  //esto no funciona
+  //PUSH DEL OBJETO AL ARRAY (INCLUDES NO FUNCIONA EN EL OBJETO)
   if (favs.includes(favId) === false) {
     favs.push(favShow);
   } else {
@@ -69,7 +62,6 @@ function createFavs (event) {
                             <h2 class="favs__item-title">${favShow.title}</h2>
                           </div>
                         </li>`;
-  console.log(`El array creado con click es `,favs);
   //ALMACENAMOS FAVS EN LOCAL STORAGE
   localStorage.setItem('favsRemember', JSON.stringify(favs));
 }
@@ -100,20 +92,22 @@ function search () {
                        </li>`;
       }
       resultsList.innerHTML = showResult;
-      //creamos array de los resultados
+      //CREAR ARRAY CON LOS RESULTADOS DE BUSQUEDA
       const resultsArray = document.querySelectorAll('.results__itemShow');
-      //lo recorremos añadiéndoles un listener
+      //RECORRER ARRAY AÑADIENDO LISTENER A CADA ELEMENTO
       for (const item of resultsArray) {
         item.addEventListener('click', createFavs);
       }
     });
 }
 
+//BUSCAR CON ENTER
 function enter (event) {
   if (event.keyCode === 13){
     search();
   }
 }
-//CLICK BOTÓN BUSCAR
+
+//LISTENERS DE BOTON BUSCAR Y ENTER
 searchBtn.addEventListener('click', search);
 input.addEventListener('keyup', enter);
