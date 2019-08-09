@@ -2,8 +2,8 @@
 @import 'core/links';
 
 body {
-	margin: 0;
-/* 	height: 100vh; */
+  margin: 0;
+  background-color: #D9C7C1;
 }
 
 //HEADER
@@ -11,10 +11,40 @@ body {
   display: flex;
   justify-content: space-around;
   margin: 10px;
+  background-color: #CC7684;
+  border-radius: 1em;
 }
+
+.header__title {
+  font-family: 'Rubik';
+  color: #ffffff;
+}
+
 .inputBtn__wrapper {
   display: flex;
   align-items: center;
+}
+
+.header__input {
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: solid 1px #A64657;
+  background-color: transparent;
+  margin-right: 5px;
+  font-size: 20px;
+  color: #ffffff;
+}
+
+.header__btn {
+  border-radius: 1em;
+  border-style: none;
+  width: 100px;
+  height: 40px;
+  background-color: #A64657;
+  font-size: 20px;
+  font-family: 'Roboto';
+  color: #ffffff;
 }
 
 //MAIN
@@ -24,25 +54,49 @@ body {
 
 //FAVS
 .favs__container {
-  width: 280px;
+  width: 200px;
+  margin: 5px;
   padding: 5px;
+  background-color: #A64657;
+  text-align: center;
+  border-radius: 1em;
 }
+
+.favs__title {
+  width: 180px;
+  padding: 10px;
+  font-family: 'Rubik';
+  color: #ffffff;
+  text-align: center;
+}
+
 .favs__list {
   list-style: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.itemShow-wrapper {
+
+.favs__item {
+  background-color: #FFAAAA;
+  width: 160px;
+  margin: 5px;
+  padding: 5px;
   text-align: center;
+  border-radius: 1em;
 }
 
-//CAMBIO DE COLORES DE FAVS
-.show__fav {
-  background-color: #BC0D35;
+.favs__item-cover {
+  margin-top: 10px;
+  width: 100px;
+}
 
-  .itemShow-title {
-    color: #FFAAAA;
-    }
+.favs__item-title {
+  color: #bc0d35;
+  font-size: 16px;
+  font-family: 'Roboto';
 }
 
 //RESULTS
@@ -55,13 +109,27 @@ body {
   @media all and (min-width:768px) {
   width: 70vw;
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
+	grid-template-columns: repeat(3, 1fr);
 	grid-gap: 15px;
   }
+
+  @media all and (min-width:1080px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
+.itemShow-wrapper {
+  text-align: center;
+}
+
+.itemShow-cover {
+  margin-top: 10px;
+  border-radius: 1em;
+}
+
 //FUENTE TÍTULO SERIES
 .itemShow-title {
-  color: #BC0D35;
+  font-family: 'Roboto';
+  color: #bc0d35;
 }
  //LI RESULTADO DE BUSCAR
 .results__itemShow {
@@ -70,4 +138,14 @@ body {
   margin: 5px;
   padding: 5px;
   text-align: center;
+  border-radius: 1em;
+}
+
+//CAMBIO DE COLORES DE FAVS
+.show__fav {
+  background-color: #BC0D35;
+
+  .itemShow-title {
+    color: #FFAAAA;
+    }
 }
