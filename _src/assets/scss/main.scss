@@ -6,14 +6,34 @@ body {
 /* 	height: 100vh; */
 }
 
- //LI RESULTADO DE BUSCAR
-.results__itemShow {
-  background-color: #FFAAAA;
+//HEADER
+.page__header {
+  display: flex;
+  justify-content: space-around;
+  margin: 10px;
+}
+.inputBtn__wrapper {
+  display: flex;
+  align-items: center;
 }
 
-//FUENTE TÍTULO SERIES
-.itemShow-title {
-  color: #BC0D35;
+//MAIN
+.page__main {
+  display: flex;
+}
+
+//FAVS
+.favs__container {
+  width: 280px;
+  padding: 5px;
+}
+.favs__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.itemShow-wrapper {
+  text-align: center;
 }
 
 //CAMBIO DE COLORES DE FAVS
@@ -23,4 +43,31 @@ body {
   .itemShow-title {
     color: #FFAAAA;
     }
+}
+
+//RESULTS
+.results__list {
+  display: inline-block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  @media all and (min-width:768px) {
+  width: 70vw;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-gap: 15px;
+  }
+}
+//FUENTE TÍTULO SERIES
+.itemShow-title {
+  color: #BC0D35;
+}
+ //LI RESULTADO DE BUSCAR
+.results__itemShow {
+  background-color: #FFAAAA;
+  width: 250px;
+  margin: 5px;
+  padding: 5px;
+  text-align: center;
 }
