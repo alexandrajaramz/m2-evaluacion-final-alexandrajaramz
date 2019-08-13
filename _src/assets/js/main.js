@@ -23,6 +23,13 @@ function loadLSFavs() {
   }
 }
 
+
+function writeTitle (event) {
+  const target = event.currentTarget;
+  const title = target.querySelector('.itemShow-title');
+  console.log(title.innerHTML);
+}
+
 //ARRAY QUE VA A ALMACENAR LOS FAVS
 let favs = [];
 
@@ -84,10 +91,16 @@ function search () {
         } else {
           showImg = `${item.show.image.medium}`;
         }
+
+        let showGenre = '';
+        for (const genre of item.show.genres) {
+          showGenre += `<li>${genre}</li>`;
+        }
         //CADA UNO SE PINTA EN UNA TARJETA CON IMG Y H2
         showResult += `<li class="results__itemShow" data-id="${showName}">
                           <div class="itemShow-wrapper">                           <img class="itemShow-cover" src="${showImg}" alt="Portada de ${showName}">
                             <h2 class="itemShow-title">${showName}</h2>
+                            <ul>${showGenre}</ul>
                           </div>
                        </li>`;
       }
@@ -96,7 +109,7 @@ function search () {
       const resultsArray = document.querySelectorAll('.results__itemShow');
       //RECORRER ARRAY AÑADIENDO LISTENER A CADA ELEMENTO
       for (const item of resultsArray) {
-        item.addEventListener('click', createFavs);
+        item.addEventListener('click', writeTitle);
       }
     });
 }
